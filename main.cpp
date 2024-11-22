@@ -71,6 +71,7 @@ int main() {
                         return -1;
                     }
 
+                    // Generowanie tilemapy
                     for (int y = 0; y < MAP_HEIGHT; ++y) {
                         for (int x = 0; x < MAP_WIDTH; ++x) {
                             int tileIndex = level[y][x];
@@ -96,11 +97,12 @@ int main() {
                 }
             }
 
+            // Ruch gracza
             if (state == GAME && event.type == sf::Event::KeyPressed) {
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) player.move(0, -TILE_SIZE);
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) player.move(0, TILE_SIZE);
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) player.move(-TILE_SIZE, 0);
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) player.move(TILE_SIZE, 0);
+                if (event.key.code == sf::Keyboard::W) player.move(0, -TILE_SIZE);
+                if (event.key.code == sf::Keyboard::S) player.move(0, TILE_SIZE);
+                if (event.key.code == sf::Keyboard::A) player.move(-TILE_SIZE, 0);
+                if (event.key.code == sf::Keyboard::D) player.move(TILE_SIZE, 0);
             }
         }
 

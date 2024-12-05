@@ -6,7 +6,7 @@
 enum GameState { MENU, MAP, BATTLE };
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "Student RPG");
+    sf::RenderWindow window(sf::VideoMode(800, 600), "AGH RPG");
 
     GameState state = MENU;
 

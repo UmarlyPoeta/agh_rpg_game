@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
 
+static constexpr int ILOSC_KAFELKOW = 50;
+
 class Map {
 public:
     Map(sf::RenderWindow &window);

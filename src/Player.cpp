@@ -1,8 +1,8 @@
 #include "Player.hpp"
 
-Player::Player(const sf::Texture &texture) : m_speed(100.0f) {
+Player::Player(const sf::Texture &texture) : m_speed(16.0f) {
     m_sprite.setTexture(texture);
-    m_sprite.setPosition(64, 64); // Początkowa pozycja gracza
+    m_sprite.setPosition(START_POS, START_POS); // Początkowa pozycja gracza
 }
 
 void Player::handleInput() {
@@ -33,7 +33,7 @@ bool Player::checkCollision(const sf::VertexArray &map) {
         sf::FloatRect tileBounds(
             map[i].position.x, 
             map[i].position.y, 
-            32, 32 // Rozmiar kafelka
+            16, 16 // Rozmiar kafelka
         );
 
         if (playerBounds.intersects(tileBounds)) {

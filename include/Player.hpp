@@ -1,6 +1,9 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 
+static constexpr int START_POS = 400;
+
+
 class Player {
 public:
     Player(const sf::Texture &texture);

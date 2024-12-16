@@ -1,7 +1,7 @@
 #include "Menu.hpp"
 
 Menu::Menu(sf::RenderWindow &window) : m_window(window) {
-    m_font.loadFromFile("assets/font.ttf");
+    m_font.loadFromFile("../assets/font.ttf");
 
     m_title.setFont(m_font);
     m_title.setString("AGH RPG");

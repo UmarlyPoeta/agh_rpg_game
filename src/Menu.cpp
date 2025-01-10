@@ -1,7 +1,10 @@
 #include "Menu.hpp"
+#include <iostream> // For error logging
 
 Menu::Menu(sf::RenderWindow &window) : m_window(window) {
-    m_font.loadFromFile("assets/font.ttf");
+    if (!m_font.loadFromFile(ASSET_DIR "/font.ttf")) {
+        std::cerr << "Error: Failed to load font from " << ASSET_DIR << "/font.ttf" << std::endl;
+    }
 
     m_title.setFont(m_font);
     m_title.setString("AGH RPG");
@@ -20,16 +23,31 @@ Menu::Menu(sf::RenderWindow &window) : m_window(window) {
 }
 
 bool Menu::run() {
-    m_window.draw(m_title);
-    m_window.draw(m_start);
-    m_window.draw(m_exit);
+    while (m_window.isOpen()) {
+        sf::Event event;
+        while (m_window.pollEvent(event)) {
+            if (event.type == sf::Event::Closed) {
+                m_window.close();
+                return false;
+            } else if (event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left) {
+                sf::Vector2i mousePos = sf::Mouse::getPosition(m_window);
+                sf::FloatRect startBounds = m_start.getGlobalBounds();
+                sf::FloatRect exitBounds = m_exit.getGlobalBounds();
 
-    sf::Vector2i mousePos = sf::Mouse::getPosition(m_window);
-    if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
-        if (m_start.getGlobalBounds().contains(mousePos.x, mousePos.y)) 
-            return true;
-        if (m_exit.getGlobalBounds().contains(mousePos.x, mousePos.y)) 
-            m_window.close();
+                if (startBounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                    return true; // Start the game
+                }
+                if (exitBounds.contains(static_cast<float>(mousePos.x), static_cast<float>(mousePos.y))) {
+                    m_window.close(); // Exit the game
+                }
+            }
+        }
+
+        m_window.clear(sf::Color::Black); // Clear the screen with a background color
+        m_window.draw(m_title);
+        m_window.draw(m_start);
+        m_window.draw(m_exit);
+        m_window.display();
     }
     return false;
 }

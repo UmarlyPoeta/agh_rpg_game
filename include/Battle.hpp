@@ -4,7 +4,8 @@
 class Battle {
 public:
     Battle(sf::RenderWindow &window);
-    bool run(); // true if battle ended
+    bool run(); // Zwraca true, jeśli walka zakończyła się.
+
 private:
     sf::RenderWindow &m_window;
 };

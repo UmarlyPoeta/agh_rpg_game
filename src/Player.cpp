@@ -1,8 +1,16 @@
 #include "Player.hpp"
+#include <SFML/Graphics.hpp>
+#include <iostream> // For debugging
 
-Player::Player(const sf::Texture &texture) : m_speed(100.0f) {
+Player::Player(const sf::Texture &texture) : m_speed(5.0f) {
     m_sprite.setTexture(texture);
-    m_sprite.setPosition(64, 64); // Początkowa pozycja gracza
+    m_sprite.setTextureRect(sf::IntRect(0, 0, 16, 16)); // Set to the correct texture size
+    m_sprite.setPosition(64, 64); // Initial position
+}
+
+void Player::setTexture(const sf::Texture &texture) {
+    m_sprite.setTexture(texture);
+    m_sprite.setTextureRect(sf::IntRect(0, 0, 16, 16)); // Ensure the correct texture size
 }
 
 void Player::handleInput() {
@@ -15,10 +23,10 @@ void Player::handleInput() {
 
 void Player::update(const sf::VertexArray &map) {
     sf::Vector2f oldPosition = m_sprite.getPosition();
-    m_sprite.move(m_velocity * (1.f / 60.f)); // Zakładamy 60 FPS
+    m_sprite.move(m_velocity * (1.f / 60.f)); // Assume 60 FPS
 
     if (checkCollision(map)) {
-        m_sprite.setPosition(oldPosition); // Cofnij ruch w przypadku kolizji
+        m_sprite.setPosition(oldPosition); // Revert movement on collision
     }
 }
 
@@ -33,15 +41,19 @@ bool Player::checkCollision(const sf::VertexArray &map) {
         sf::FloatRect tileBounds(
             map[i].position.x, 
             map[i].position.y, 
-            32, 32 // Rozmiar kafelka
+            16, 16 // Tile size
         );
 
         if (playerBounds.intersects(tileBounds)) {
-            // Zakładamy, że kolizja występuje na kafelkach o kolorze czerwonym
+            // Assume collision occurs on red tiles
             if (map[i].color == sf::Color::Red) {
                 return true;
             }
         }
     }
     return false;
+}
+
+sf::FloatRect Player::getBounds() const {
+    return m_sprite.getGlobalBounds();
 }

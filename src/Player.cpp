@@ -4,7 +4,7 @@
 
 Player::Player(const sf::Texture &texture) : m_speed(5.0f) {
     m_sprite.setTexture(texture);
-    m_sprite.setTextureRect(sf::IntRect(0, 0, 16, 16)); // Set to the correct texture size
+    m_sprite.setTextureRect(sf::IntRect(48, 0, 16, 32)); // Set to the correct texture size
     m_sprite.setPosition(64, 64); // Initial position
 }
 

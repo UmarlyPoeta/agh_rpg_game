@@ -8,11 +8,10 @@ Map::Map(sf::RenderWindow &window)
         std::cerr << "Error: Failed to load map texture from " << ASSET_DIR << "/map_agh2.png" << std::endl;
     }
 
-    sf::Texture playerTexture;
-    if (!playerTexture.loadFromFile(ASSET_DIR "/player.png")) {
+    if (!m_playertexture.loadFromFile(ASSET_DIR "/student.png")) {
         std::cerr << "Error: Failed to load player texture from " << ASSET_DIR << "/player.png" << std::endl;
     } else {
-        m_player = Player(playerTexture);
+        m_player = Player(m_playertexture);
     }
 
     loadMap();

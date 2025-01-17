@@ -15,10 +15,26 @@ void Player::setTexture(const sf::Texture &texture) {
 
 void Player::handleInput() {
     m_velocity = sf::Vector2f(0.f, 0.f);
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) m_velocity.y -= m_speed;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) m_velocity.y += m_speed;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) m_velocity.x -= m_speed;
-    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) m_velocity.x += m_speed;
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+    {
+        m_sprite.setTextureRect(sf::IntRect(16, 0, 16, 32));
+        m_velocity.y -= m_speed;
+    } 
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+    {
+        m_sprite.setTextureRect(sf::IntRect(48, 0, 16, 32));
+        m_velocity.y += m_speed;
+    } 
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+    {
+        m_sprite.setTextureRect(sf::IntRect(32, 0, 16, 32));
+        m_velocity.x -= m_speed;
+    } 
+    if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+    {
+        m_sprite.setTextureRect(sf::IntRect(0, 0, 16, 32));
+        m_velocity.x += m_speed;
+    } 
 }
 
 void Player::update(const sf::VertexArray &map) {

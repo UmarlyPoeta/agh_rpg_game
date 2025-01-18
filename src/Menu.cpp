@@ -2,9 +2,15 @@
 #include <iostream> // For error logging
 
 Menu::Menu(sf::RenderWindow &window) : m_window(window) {
-    if (!m_font.loadFromFile(ASSET_DIR "/font.ttf")) {
+    if (!m_font.loadFromFile(ASSET_DIR "/pixel-font.ttf")) {
         std::cerr << "Error: Failed to load font from " << ASSET_DIR << "/font.ttf" << std::endl;
     }
+
+    if (!menu_texture.loadFromFile(ASSET_DIR "/back.png")) {
+        std::cerr << "Error: Failed to load texture from " << ASSET_DIR << "/background_menu.png" << std::endl;
+    }
+    
+    background_sprite.setTexture(menu_texture);
 
     m_title.setFont(m_font);
     m_title.setString("AGH RPG");
@@ -14,7 +20,7 @@ Menu::Menu(sf::RenderWindow &window) : m_window(window) {
     m_start.setFont(m_font);
     m_start.setString("Start");
     m_start.setCharacterSize(30);
-    m_start.setPosition(350, 250);
+    m_start.setPosition(346, 250);
 
     m_exit.setFont(m_font);
     m_exit.setString("Exit");
@@ -44,6 +50,7 @@ bool Menu::run() {
         }
 
         m_window.clear(sf::Color::Black); // Clear the screen with a background color
+        m_window.draw(background_sprite);
         m_window.draw(m_title);
         m_window.draw(m_start);
         m_window.draw(m_exit);

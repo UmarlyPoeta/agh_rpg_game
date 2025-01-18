@@ -85,6 +85,7 @@ void Map::loadMap() {
 }
 
 bool Map::run() {
+    m_window.setSize(sf::Vector2u(960, 320));
     while (m_window.isOpen()) {
         sf::Event event;
         while (m_window.pollEvent(event)) {

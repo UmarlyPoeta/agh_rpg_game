@@ -12,4 +12,6 @@ private:
     sf::Text m_title;
     sf::Text m_start;
     sf::Text m_exit;
+    sf::Texture menu_texture;
+    sf::Sprite background_sprite;
 };

@@ -69,7 +69,7 @@ void Map::loadMap() {
         };
 
         //Example collision tile (index 300, near the center of the map)
-        if (!i == collisiontile[i]) {
+        if (!(i == collisiontile[i])) {
             quad[0].color = sf::Color(255, 255, 255, 254);
             quad[1].color = sf::Color(255, 255, 255, 254);
             quad[2].color = sf::Color(255, 255, 255, 254);
@@ -86,6 +86,9 @@ void Map::loadMap() {
 
 bool Map::run() {
     m_window.setSize(sf::Vector2u(960, 320));
+    sf::View view(sf::FloatRect(0, 0, 960, 320));
+    m_window.setView(view);
+
     while (m_window.isOpen()) {
         sf::Event event;
         while (m_window.pollEvent(event)) {

@@ -2,10 +2,10 @@
 #include <SFML/Graphics.hpp>
 #include <iostream> // For debugging
 
-Player::Player(const sf::Texture &texture) : m_speed(5.0f) {
+Player::Player(const sf::Texture &texture) : m_speed(1.0f) {
     m_sprite.setTexture(texture);
-    m_sprite.setTextureRect(sf::IntRect(48, 0, 16, 32)); // Set to the correct texture size
-    m_sprite.setPosition(64, 64); // Initial position
+    m_sprite.setTextureRect(sf::IntRect(48, 0, 16, 22)); // Set to the correct texture size
+    m_sprite.setPosition(16, 164); // Initial position
 }
 
 void Player::setTexture(const sf::Texture &texture) {
@@ -17,22 +17,22 @@ void Player::handleInput() {
     m_velocity = sf::Vector2f(0.f, 0.f);
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::W))
     {
-        m_sprite.setTextureRect(sf::IntRect(16, 0, 16, 32));
+        m_sprite.setTextureRect(sf::IntRect(17, 0, 14, 22));
         m_velocity.y -= m_speed;
     } 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
     {
-        m_sprite.setTextureRect(sf::IntRect(48, 0, 16, 32));
+        m_sprite.setTextureRect(sf::IntRect(49, 0, 14, 22));
         m_velocity.y += m_speed;
     } 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
     {
-        m_sprite.setTextureRect(sf::IntRect(32, 0, 16, 32));
+        m_sprite.setTextureRect(sf::IntRect(33, 0, 14, 22));
         m_velocity.x -= m_speed;
     } 
     if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
     {
-        m_sprite.setTextureRect(sf::IntRect(0, 0, 16, 32));
+        m_sprite.setTextureRect(sf::IntRect(1, 0, 14, 22));
         m_velocity.x += m_speed;
     } 
 }
@@ -62,7 +62,7 @@ bool Player::checkCollision(const sf::VertexArray &map) {
 
         if (playerBounds.intersects(tileBounds)) {
             // Assume collision occurs on red tiles
-            if (map[i].color == sf::Color::Red) {
+            if (map[i].color == sf::Color(255, 255, 255, 254)) {
                 return true;
             }
         }

@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "Player.hpp"
+#include "Enemy.hpp"
 
 class Map {
 public:
@@ -12,5 +13,6 @@ private:
     sf::Texture m_playertexture;
     sf::VertexArray m_tilemap;
     Player m_player;
+    Enemy m_enemy;
     void loadMap();
 };

@@ -4,7 +4,7 @@
 #include <iostream> // For error logging
 
 Map::Map(sf::RenderWindow &window) 
-    : m_window(window), m_player(m_tileset) {
+    : m_window(window), m_player(m_tileset, 1) {
 
     next_map = false;
 
@@ -27,7 +27,7 @@ Map::Map(sf::RenderWindow &window)
     if (!m_playertexture.loadFromFile(ASSET_DIR "/student.png")) {
         std::cerr << "Error: Failed to load player texture from " << ASSET_DIR << "/player.png" << std::endl;
     } else {
-        m_player = Player(m_playertexture);
+        m_player = Player(m_playertexture, 1);
     }
 
     loadMap();

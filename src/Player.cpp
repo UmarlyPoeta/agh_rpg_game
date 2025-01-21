@@ -2,10 +2,18 @@
 #include <SFML/Graphics.hpp>
 #include <iostream> // For debugging
 
-Player::Player(const sf::Texture &texture) : m_speed(9.0f) {
+Player::Player(const sf::Texture &texture, int whichMap) : m_speed(9.0f) {
     m_sprite.setTexture(texture);
     m_sprite.setTextureRect(sf::IntRect(48, 0, 16, 22)); // Set to the correct texture size
-    m_sprite.setPosition(16, 164); // Initial position
+
+    if (whichMap)
+    {
+        m_sprite.setPosition(16, 164); // Initial position    
+    }
+    else
+    {
+        m_sprite.setPosition(544, 112); // Initial position
+    }
 }
 
 void Player::setTexture(const sf::Texture &texture) {

@@ -2,7 +2,7 @@
 #include "Menu.hpp"
 #include "Map.hpp"
 #include "Battle.hpp"
-#include "Map_2.hpp"
+#include "Map2.hpp"
 #include "GameState.hpp"
 
 int main() {

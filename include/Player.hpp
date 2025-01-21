@@ -4,7 +4,7 @@
 class Player {
 public:
     Player();
-    Player(const sf::Texture &texture); // Konstruktor akceptujący teksturę
+    Player(const sf::Texture &texture, int whichMap); // Konstruktor akceptujący teksturę
     void setTexture(const sf::Texture &texture); // Ustaw teksturę gracza
     void handleInput(); // Obsługa wejścia z klawiatury
     void update(const sf::VertexArray &map); // Aktualizacja pozycji i kolizji

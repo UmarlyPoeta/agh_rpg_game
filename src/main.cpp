@@ -28,10 +28,26 @@ int main() {
                 if (menu.run()) state = MAP;
                 break;
             case MAP:
-                if (map.run()) state = BATTLE;
+                if (map.run())
+                {
+                    if (map.getIsNextMap())
+                    {
+                        state = MAP_2;
+                    } else {
+                        state = BATTLE;
+                    }
+                } 
                 break;
             case BATTLE:
-                if (battle.run()) state = MAP;
+                if (battle.run())
+                {
+                    if (map.getIsNextMap())
+                    {
+                        state = MAP_2;
+                    } else {
+                        state = MAP;
+                    }
+                }
                 break;
             case MAP_2:
                 if (map_2.run()) state = BATTLE;

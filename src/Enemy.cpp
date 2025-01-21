@@ -27,6 +27,16 @@ void Enemy::draw(sf::RenderWindow &window) {
     window.draw(m_sprite);
 }
 
+void Enemy::setPositionEnemy(int x, int y)
+{
+    m_sprite.setPosition(x, y);
+}
+
+void Enemy::setTextureRectEnemy(sf::IntRect tx)
+{
+    m_sprite.setTextureRect(tx);
+}
+
 bool Enemy::checkCollision(const sf::VertexArray &map) {
     sf::FloatRect enemyBounds = m_sprite.getGlobalBounds();
 

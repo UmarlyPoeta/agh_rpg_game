@@ -10,6 +10,8 @@ public:
     bool checkIfPlayerSeesEnemy(sf::Sprite &playerSprite); 
     void update(const sf::VertexArray &map); // Aktualizacja pozycji i kolizji
     void draw(sf::RenderWindow &window); // Rysowanie gracza na oknie
+    void setPositionEnemy(int x, int y);
+    void setTextureRectEnemy(sf::IntRect tx);
 
     sf::FloatRect getBounds() const; // Pobierz obszar kolizji gracza
 

@@ -5,8 +5,17 @@
 
 Map::Map(sf::RenderWindow &window) 
     : m_window(window), m_player(m_tileset) {
+
+    next_map = false;
+
     if (!m_tileset.loadFromFile(ASSET_DIR "/map_agh2.png")) {
         std::cerr << "Error: Failed to load map texture from " << ASSET_DIR << "/map_agh2.png" << std::endl;
+    }
+
+    if (!m_enemytexture2.loadFromFile(ASSET_DIR "/midas.png")) {
+        std::cerr << "Error: Failed to load enemy texture from " << ASSET_DIR << "/midas.png" << std::endl;
+    } else {
+        m_enemy2 = Enemy(m_enemytexture2);
     }
 
     if (!m_enemytexture.loadFromFile(ASSET_DIR "/enemy.png")) {
@@ -101,6 +110,8 @@ bool Map::run() {
     m_window.setSize(sf::Vector2u(960, 320));
     sf::View view(sf::FloatRect(0, 0, 960, 320));
     m_window.setView(view);
+    m_enemy2.setPositionEnemy(400, 160);
+    m_enemy2.setTextureRectEnemy(sf::IntRect(0, 0, 16, 16));
 
     while (m_window.isOpen()) {
         sf::Event event;
@@ -116,6 +127,14 @@ bool Map::run() {
         {
             return true;
         }
+        if (m_enemy2.checkIfPlayerSeesEnemy(m_player.getSprite()))
+        {
+            return true;
+        }
+        if (checkIfNextMap(m_player.getSprite()))
+        {
+            return true;
+        }
 
         m_window.clear(sf::Color::White); // Background color for map
 
@@ -126,8 +145,24 @@ bool Map::run() {
 
         m_player.draw(m_window);
         m_enemy.draw(m_window);
+        m_enemy2.draw(m_window);
         m_window.display();
     }
 
     return false;
+}
+
+bool Map::checkIfNextMap(sf::Sprite player_sprite)
+{
+    if ((std::fabs(player_sprite.getPosition().x - 800) < 16) && (std::fabs(player_sprite.getPosition().y - 92) < 16))
+    {
+        next_map = true;
+        return true;
+    }
+    return false;
+}
+
+bool Map::getIsNextMap()
+{
+    return next_map;
 }

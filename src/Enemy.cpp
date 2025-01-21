@@ -2,24 +2,25 @@
 #include <SFML/Graphics.hpp>
 #include <iostream> // For debugging
 
-Enemy::Enemy(const sf::Texture &texture) : m_speed(5.0f) {
+Enemy::Enemy()
+{
+}
+
+Enemy::Enemy(const sf::Texture &texture) : m_speed(5.0f)
+{
     m_sprite.setTexture(texture);
-    m_sprite.setTextureRect(sf::IntRect(48, 0, 16, 22)); // Set to the correct texture size
-    m_sprite.setPosition(16, 164); // Initial position
+    m_sprite.setTextureRect(sf::IntRect(32, 0, 16, 32)); // Set to the correct texture size
+    m_sprite.setPosition(368, 144); // Initial position
+    defeated = false;
 }
 
-void Enemy::handleMovement() {
-    m_velocity = sf::Vector2f(0.f, 0.f);
-     
-}
-
-void Enemy::update(const sf::VertexArray &map) {
-    sf::Vector2f oldPosition = m_sprite.getPosition();
-    m_sprite.move(m_velocity * (1.f / 60.f)); // Assume 60 FPS
-
-    if (checkCollision(map)) {
-        m_sprite.setPosition(oldPosition); // Revert movement on collision
+bool Enemy::checkIfPlayerSeesEnemy(sf::Sprite &playerSprite) {
+    if (((std::fabs(m_sprite.getPosition().x - playerSprite.getPosition().x) <= 48) && std::fabs(m_sprite.getPosition().y - playerSprite.getPosition().y) <= 48) && (!defeated))
+    {
+        defeated = true;
+        return true;
     }
+    return false;
 }
 
 void Enemy::draw(sf::RenderWindow &window) {

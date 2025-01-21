@@ -17,12 +17,12 @@ bool Battle::run() {
     sf::Text playerHealthText;
     playerHealthText.setFont(font);
     playerHealthText.setCharacterSize(20);
-    playerHealthText.setPosition(50, 50);
+    playerHealthText.setPosition(50, 200);
 
     sf::Text enemyHealthText;
     enemyHealthText.setFont(font);
     enemyHealthText.setCharacterSize(20);
-    enemyHealthText.setPosition(600, 50);
+    enemyHealthText.setPosition(600, 200);
 
     while (m_window.isOpen()) {
         sf::Event event;

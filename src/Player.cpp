@@ -50,6 +50,11 @@ void Player::draw(sf::RenderWindow &window) {
     window.draw(m_sprite);
 }
 
+sf::Sprite& Player::getSprite()
+{
+    return m_sprite;
+}
+
 bool Player::checkCollision(const sf::VertexArray &map) {
     sf::FloatRect playerBounds = m_sprite.getGlobalBounds();
 

@@ -1,15 +1,33 @@
-#include "Map_2.hpp"
+#include "Map2.hpp"
 #include "Player.hpp"
 #include "Enemy.hpp"
 #include <iostream> // For error logging
 
 Map_2::Map_2(sf::RenderWindow &window) 
-    : m_window(window), m_player(m_tileset), m_enemy(m_tileset) {
+    : m_window(window), m_player(m_tileset, 0), m_enemy(m_tileset) {
     if (!m_tileset.loadFromFile(ASSET_DIR "/b5.png")) {
         std::cerr << "Error: Failed to load map texture from " << ASSET_DIR << "/map_agh2.png" << std::endl;
     }
 
-    if (!m_enemytexture.loadFromFile(ASSET_DIR "/student.png")) {
+    if (!m_enemytexture2.loadFromFile(ASSET_DIR "/banas.png")) {
+        std::cerr << "Error: Failed to load enemy texture from " << ASSET_DIR << "/enemy.png" << std::endl;
+    } else {
+        m_enemy2 = Enemy(m_enemytexture2);
+    }
+
+    if (!m_bosstexture.loadFromFile(ASSET_DIR "/boss.png")) {
+        std::cerr << "Error: Failed to load enemy texture from " << ASSET_DIR << "/midas.png" << std::endl;
+    } else {
+        boss = Enemy(m_bosstexture);
+    }
+
+    if (!m_enemytexture3.loadFromFile(ASSET_DIR "/algebra.png")) {
+        std::cerr << "Error: Failed to load enemy texture from " << ASSET_DIR << "/enemy.png" << std::endl;
+    } else {
+        m_enemy3 = Enemy(m_enemytexture3);
+    }
+
+    if (!m_enemytexture.loadFromFile(ASSET_DIR "/janosik.png")) {
         std::cerr << "Error: Failed to load enemy texture from " << ASSET_DIR << "/enemy.png" << std::endl;
     } else {
         m_enemy = Enemy(m_enemytexture);
@@ -18,7 +36,7 @@ Map_2::Map_2(sf::RenderWindow &window)
     if (!m_playertexture.loadFromFile(ASSET_DIR "/student.png")) {
         std::cerr << "Error: Failed to load player texture from " << ASSET_DIR << "/player.png" << std::endl;
     } else {
-        m_player = Player(m_playertexture);
+        m_player = Player(m_playertexture, 0);
     }
 
     loadMap();
@@ -99,6 +117,15 @@ bool Map_2::run() {
     m_window.setSize(sf::Vector2u(576, 288));
     sf::View view(sf::FloatRect(0, 0, 576, 288));
     m_window.setView(view);
+    m_enemy.setPositionEnemy(496, 253);
+    m_enemy2.setPositionEnemy(280, 253);
+    m_enemy3.setPositionEnemy(92,130);
+    boss.setPositionEnemy(48, 48);
+
+    m_enemy.setTextureRectEnemy(sf::IntRect(0, 0, 16, 16));
+    m_enemy2.setTextureRectEnemy(sf::IntRect(0, 0, 16, 16));
+    m_enemy3.setTextureRectEnemy(sf::IntRect(0, 0, 16, 16));
+    boss.setTextureRectEnemy(sf::IntRect(0, 0, 16, 16));
 
     while (m_window.isOpen()) {
         sf::Event event;
@@ -113,6 +140,19 @@ bool Map_2::run() {
         {
             return true;
         }
+        if (m_enemy2.checkIfPlayerSeesEnemy(m_player.getSprite()))
+        {
+            return true;
+        }
+        if (m_enemy3.checkIfPlayerSeesEnemy(m_player.getSprite()))
+        {
+            return true;
+        }
+        if (boss.checkIfPlayerSeesEnemy(m_player.getSprite()))
+        {
+            return true;
+        }
+
         m_player.update(m_tilemap);
 
         m_window.clear(sf::Color::White); // Background color for map
@@ -124,6 +164,9 @@ bool Map_2::run() {
 
         m_player.draw(m_window);
         m_enemy.draw(m_window);
+        m_enemy2.draw(m_window);
+        m_enemy3.draw(m_window);
+        boss.draw(m_window);
         m_window.display();
     }
 

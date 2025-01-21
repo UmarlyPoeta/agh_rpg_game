@@ -9,7 +9,7 @@ bool Battle::run() {
     int enemyHealth = 100;
 
     sf::Font font;
-    if (!font.loadFromFile("assets/pixel-font.ttf")) {
+    if (!font.loadFromFile(ASSET_DIR "/pixel-font.ttf")) {
         std::cerr << "Error: Failed to load font for battle screen." << std::endl;
         return true; // Exit battle if resources fail to load
     }

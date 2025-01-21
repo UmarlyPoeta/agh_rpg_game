@@ -11,6 +11,7 @@ private:
     sf::RenderWindow &m_window;
     sf::Texture m_tileset;
     sf::Texture m_playertexture;
+    sf::Texture m_enemytexture;
     sf::VertexArray m_tilemap;
     Player m_player;
     Enemy m_enemy;

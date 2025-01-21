@@ -2,8 +2,9 @@
 #include "Menu.hpp"
 #include "Map.hpp"
 #include "Battle.hpp"
+#include "Map_2.hpp"
 
-enum GameState { MENU, MAP, BATTLE };
+enum GameState { MENU, MAP, BATTLE, MAP_2 };
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(800,500), "AGH RPG");
@@ -11,6 +12,7 @@ int main() {
     GameState state = MENU;
     Menu menu(window);
     Map map(window);
+    Map_2 map_2(window);
     Battle battle(window);
 
     while (window.isOpen()) {
@@ -31,6 +33,9 @@ int main() {
                 break;
             case BATTLE:
                 if (battle.run()) state = MAP;
+                break;
+            case MAP_2:
+                if (map_2.run()) state = BATTLE;
                 break;
         }
 

@@ -109,9 +109,11 @@ bool Map_2::run() {
         }
 
         m_player.handleInput();
-        m_enemy.handleMovement();
+        if (m_enemy.checkIfPlayerSeesEnemy(m_player.getSprite()))
+        {
+            return true;
+        }
         m_player.update(m_tilemap);
-        m_enemy.update(m_tilemap);
 
         m_window.clear(sf::Color::White); // Background color for map
 

@@ -1,9 +1,6 @@
 #include "Map.hpp"
-<<<<<<< HEAD
 #include "Player.hpp"
 #include "Enemy.hpp"
-=======
->>>>>>> 244c931 (Add GameState enum and refactor enemy handling in Map and Player classes)
 #include <iostream> // For error logging
 
 Map::Map(sf::RenderWindow &window) 
@@ -12,7 +9,7 @@ Map::Map(sf::RenderWindow &window)
         std::cerr << "Error: Failed to load map texture from " << ASSET_DIR << "/map_agh2.png" << std::endl;
     }
 
-    if (!m_enemytexture.loadFromFile(ASSET_DIR "/student.png")) {
+    if (!m_enemytexture.loadFromFile(ASSET_DIR "/enemy.png")) {
         std::cerr << "Error: Failed to load enemy texture from " << ASSET_DIR << "/enemy.png" << std::endl;
     } else {
         m_enemy = Enemy(m_enemytexture);

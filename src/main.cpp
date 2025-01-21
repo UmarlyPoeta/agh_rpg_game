@@ -2,13 +2,8 @@
 #include "Menu.hpp"
 #include "Map.hpp"
 #include "Battle.hpp"
-<<<<<<< HEAD
 #include "Map_2.hpp"
-
-enum GameState { MENU, MAP, BATTLE, MAP_2 };
-=======
 #include "GameState.hpp"
->>>>>>> 244c931 (Add GameState enum and refactor enemy handling in Map and Player classes)
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(800,500), "AGH RPG");

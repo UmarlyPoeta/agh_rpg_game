@@ -1,9 +1,8 @@
 #include "Map.hpp"
-#include "Player.hpp"
 #include <iostream> // For error logging
 
 Map::Map(sf::RenderWindow &window) 
-    : m_window(window), m_player(m_tileset), m_enemy(m_tileset) {
+    : m_window(window), m_player(m_tileset) {
     if (!m_tileset.loadFromFile(ASSET_DIR "/map_agh2.png")) {
         std::cerr << "Error: Failed to load map texture from " << ASSET_DIR << "/map_agh2.png" << std::endl;
     }
@@ -104,9 +103,11 @@ bool Map::run() {
         }
 
         m_player.handleInput();
-        m_enemy.handleMovement();
         m_player.update(m_tilemap);
-        m_enemy.update(m_tilemap);
+        if (m_enemy.checkIfPlayerSeesEnemy(m_player.getSprite()))
+        {
+            return true;
+        }
 
         m_window.clear(sf::Color::White); // Background color for map
 

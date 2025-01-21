@@ -2,8 +2,7 @@
 #include "Menu.hpp"
 #include "Map.hpp"
 #include "Battle.hpp"
-
-enum GameState { MENU, MAP, BATTLE };
+#include "GameState.hpp"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(800,500), "AGH RPG");

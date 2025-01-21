@@ -9,6 +9,7 @@ public:
     void handleInput(); // Obsługa wejścia z klawiatury
     void update(const sf::VertexArray &map); // Aktualizacja pozycji i kolizji
     void draw(sf::RenderWindow &window); // Rysowanie gracza na oknie
+    sf::Sprite& getSprite();
 
     sf::FloatRect getBounds() const; // Pobierz obszar kolizji gracza
 

@@ -11,6 +11,8 @@ public:
     bool checkIfNextMap(sf::Sprite player_sprite);
     bool getIsNextMap();
     bool next_map;
+    sf::Texture tex_to_battle;
+    sf::Texture getBattleTexture();
 private:
     sf::RenderWindow &m_window;
     sf::Texture m_tileset;

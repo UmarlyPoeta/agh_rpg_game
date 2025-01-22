@@ -125,10 +125,16 @@ bool Map::run() {
         m_player.update(m_tilemap);
         if (m_enemy.checkIfPlayerSeesEnemy(m_player.getSprite()))
         {
+            if (!tex_to_battle.loadFromFile(ASSET_DIR "/studentUJ.png")) {
+                std::cerr << "Error: Failed to load battle texture from " << ASSET_DIR << "/map_agh2.png" << std::endl;
+            }
             return true;
         }
         if (m_enemy2.checkIfPlayerSeesEnemy(m_player.getSprite()))
         {
+            if (!tex_to_battle.loadFromFile(ASSET_DIR "/midas_selfie.png")) {
+                std::cerr << "Error: Failed to load battle texture from " << ASSET_DIR << "/map_agh2.png" << std::endl;
+            }
             return true;
         }
         if (checkIfNextMap(m_player.getSprite()))
@@ -165,4 +171,9 @@ bool Map::checkIfNextMap(sf::Sprite player_sprite)
 bool Map::getIsNextMap()
 {
     return next_map;
+}
+
+sf::Texture Map::getBattleTexture()
+{
+    return tex_to_battle;
 }

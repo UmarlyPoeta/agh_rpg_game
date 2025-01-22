@@ -13,6 +13,7 @@ int main() {
     Map map(window);
     Map_2 map_2(window);
     Battle battle(window);
+    sf::Texture battleTexture;
 
     while (window.isOpen()) {
         sf::Event event;
@@ -35,11 +36,12 @@ int main() {
                         state = MAP_2;
                     } else {
                         state = BATTLE;
+                        battleTexture = map.getBattleTexture();
                     }
                 } 
                 break;
             case BATTLE:
-                if (battle.run())
+                if (battle.run(battleTexture))
                 {
                     if (map.getIsNextMap())
                     {
@@ -50,7 +52,11 @@ int main() {
                 }
                 break;
             case MAP_2:
-                if (map_2.run()) state = BATTLE;
+                if (map_2.run())
+                {
+                    state = BATTLE;
+                    battleTexture = map_2.getBattleTexture();
+                } 
                 break;
         }
 

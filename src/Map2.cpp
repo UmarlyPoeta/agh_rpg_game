@@ -138,18 +138,30 @@ bool Map_2::run() {
         m_player.handleInput();
         if (m_enemy.checkIfPlayerSeesEnemy(m_player.getSprite()))
         {
+            if (!tex_to_battle.loadFromFile(ASSET_DIR "/janosik_battle.png")) {
+                std::cerr << "Error: Failed to load map texture from " << ASSET_DIR << "/janosik_battle.png" << std::endl;
+            }
             return true;
         }
         if (m_enemy2.checkIfPlayerSeesEnemy(m_player.getSprite()))
         {
+            if (!tex_to_battle.loadFromFile(ASSET_DIR "/banas_battle.png")) {
+                std::cerr << "Error: Failed to load map texture from " << ASSET_DIR << "/banas_battle.png" << std::endl;
+            }
             return true;
         }
         if (m_enemy3.checkIfPlayerSeesEnemy(m_player.getSprite()))
         {
+            if (!tex_to_battle.loadFromFile(ASSET_DIR "/algebra_battle.png")) {
+                std::cerr << "Error: Failed to load map texture from " << ASSET_DIR << "/algebra_battle.png" << std::endl;
+            }
             return true;
         }
         if (boss.checkIfPlayerSeesEnemy(m_player.getSprite()))
         {
+            if (!tex_to_battle.loadFromFile(ASSET_DIR "/najlepszy_profesor.png")) {
+                std::cerr << "Error: Failed to load map texture from " << ASSET_DIR << "/najlepszy_profesor.png" << std::endl;
+            }
             return true;
         }
 
@@ -171,4 +183,9 @@ bool Map_2::run() {
     }
 
     return false;
+}
+
+sf::Texture Map_2::getBattleTexture()
+{
+    return tex_to_battle;
 }

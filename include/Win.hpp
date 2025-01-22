@@ -11,6 +11,7 @@ public:
     
 private:
     sf::RenderWindow &m_window;
+    sf::Text textshadow;
     sf::Text text1;
     sf::Text text2;
 };

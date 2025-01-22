@@ -26,7 +26,13 @@ bool Win::run() {
         return true; // Exit battle if resources fail to load
     }
 
-    
+    textshadow.setFont(font);
+    textshadow.setFillColor(sf::Color::White);
+    textshadow.setCharacterSize(148);
+    textshadow.setPosition(201, 150);
+    textshadow.setString("YOU WON!");
+
+
     text1.setFont(font);
     text1.setFillColor(sf::Color::Black);
     text1.setCharacterSize(150);
@@ -36,7 +42,7 @@ bool Win::run() {
     text2.setFont(font);
     text2.setFillColor(sf::Color::Black);
     text2.setCharacterSize(40);
-    text2.setPosition(150, 400);
+    text2.setPosition(100, 400);
     text2.setString("Press Enter to leave the game, Thank you for playing :^)");
 
     while (m_window.isOpen()) {

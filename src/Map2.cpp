@@ -5,6 +5,8 @@
 
 Map_2::Map_2(sf::RenderWindow &window) 
     : m_window(window), m_player(m_tileset, 0), m_enemy(m_tileset) {
+    is_boss = false;
+
     if (!m_tileset.loadFromFile(ASSET_DIR "/b5.png")) {
         std::cerr << "Error: Failed to load map texture from " << ASSET_DIR << "/map_agh2.png" << std::endl;
     }
@@ -117,7 +119,7 @@ bool Map_2::run() {
     m_window.setSize(sf::Vector2u(576, 288));
     sf::View view(sf::FloatRect(0, 0, 576, 288));
     m_window.setView(view);
-    m_enemy.setPositionEnemy(496, 253);
+    m_enemy.setPositionEnemy(480, 253);
     m_enemy2.setPositionEnemy(280, 253);
     m_enemy3.setPositionEnemy(92,130);
     boss.setPositionEnemy(48, 48);
@@ -162,6 +164,7 @@ bool Map_2::run() {
             if (!tex_to_battle.loadFromFile(ASSET_DIR "/najlepszy_profesor.png")) {
                 std::cerr << "Error: Failed to load map texture from " << ASSET_DIR << "/najlepszy_profesor.png" << std::endl;
             }
+            is_boss = true;
             return true;
         }
 
@@ -183,6 +186,11 @@ bool Map_2::run() {
     }
 
     return false;
+}
+
+bool Map_2::getIsBoss()
+{
+    return is_boss;
 }
 
 sf::Texture Map_2::getBattleTexture()

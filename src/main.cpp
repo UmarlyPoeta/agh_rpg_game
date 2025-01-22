@@ -4,6 +4,8 @@
 #include "Battle.hpp"
 #include "Map2.hpp"
 #include "GameState.hpp"
+#include "Win.hpp"
+#include "Lose.hpp"
 
 int main() {
     sf::RenderWindow window(sf::VideoMode(800,500), "AGH RPG");
@@ -14,6 +16,8 @@ int main() {
     Map_2 map_2(window);
     Battle battle(window);
     sf::Texture battleTexture;
+    Win win(window);
+    Lose lose(window);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -43,11 +47,25 @@ int main() {
             case BATTLE:
                 if (battle.run(battleTexture))
                 {
-                    if (map.getIsNextMap())
+                    if (battle.getOutcome())
                     {
-                        state = MAP_2;
-                    } else {
-                        state = MAP;
+                        if (map_2.getIsBoss())
+                        {
+                            state = WIN;
+                        }
+                        else
+                        {
+                            if (map.getIsNextMap())
+                            {
+                                state = MAP_2;
+                            } else {
+                                state = MAP;
+                            }
+                        }
+                    }
+                    else
+                    {
+                        state = LOSE;
                     }
                 }
                 break;
@@ -58,6 +76,17 @@ int main() {
                     battleTexture = map_2.getBattleTexture();
                 } 
                 break;
+            case WIN:
+                if (win.run())
+                {
+                    window.close();
+                }
+                break;
+            case LOSE:
+                if (lose.run())
+                {
+                    window.close();
+                } 
         }
 
         window.display();

@@ -7,9 +7,9 @@ class Map_2 {
 public:
     Map_2(sf::RenderWindow &window);
     bool run(); // Zwraca true, jeśli dochodzi do walki.
-    bool is_boss_defeated;
+    bool is_boss;
     sf::Texture tex_to_battle;
-    bool getIsBossDefeated();
+    bool getIsBoss();
     sf::Texture getBattleTexture();
 private:
     sf::RenderWindow &m_window;

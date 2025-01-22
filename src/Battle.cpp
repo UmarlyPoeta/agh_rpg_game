@@ -10,8 +10,14 @@ bool Battle::run(sf::Texture enemyTex) {
     sf::View view(sf::FloatRect(0, 0, 800, 500));
     m_window.setView(view);
 
-    int player_score = 10;
-    int enemy_score = 10;
+    int player_score = 70;
+    int enemy_score = 70;
+
+    sf::Texture borderTexture;
+    if (!borderTexture.loadFromFile(ASSET_DIR "/border.png")) {
+        std::cerr << "Error: Failed to load bar.png for battle screen." << std::endl;
+        return true; // Exit battle if resources fail to load
+    }
 
 
     sf::Texture backgroundTex;
@@ -32,14 +38,17 @@ bool Battle::run(sf::Texture enemyTex) {
         return true; // Exit battle if resources fail to load
     }
 
+    borderLeft.setTexture(borderTexture);
+    borderLeft.setTextureRect(sf::IntRect(85, 85, 384, 473));
+    borderLeft.setPosition(0, 0);
+
+    borderRight.setTexture(borderTexture);
+    borderRight.setTextureRect(sf::IntRect(0, 85, 384, 473));
+    borderRight.setPosition(416, 0);
+
     playerBaner.setTexture(playerTextureBaner);
     playerBaner.setTextureRect(sf::IntRect(0, 0, 300, 400));
     playerBaner.setPosition(0, 0);
-
-
-    bar.setTexture(bar_tex);
-    bar.setTextureRect(sf::IntRect(7, 80, 393, 60));
-    bar.setPosition(50, 300);
 
     background.setTexture(backgroundTex);
     background.setTextureRect(sf::IntRect(0, 0, 800, 500));
@@ -49,16 +58,25 @@ bool Battle::run(sf::Texture enemyTex) {
     enemyBaner.setTextureRect(sf::IntRect(0, 0, 300, 400));
     enemyBaner.setPosition(500, 0);
 
-    /*sf::RectangleShape playerBar(sf::Vector2f(200, 20));
-    playerBar.setFillColor(sf::Color::Green);
-    playerBar.setPosition(50, 350);
-    playerBar.setSize(sf::Vector2f(200 * playerFill, 20));
+    bar.setTexture(bar_tex);
+    bar.setTextureRect(sf::IntRect(0, 0, 800, 200));
+    bar.setPosition(0, 350);
 
-    sf::RectangleShape enemyBar(sf::Vector2f(200, 20));
+    sf::RectangleShape playerBar;
+    playerBar.setFillColor(sf::Color::Green);
+    playerBar.setPosition(80, 435);
+    playerBar.setSize(sf::Vector2f(70, 30));
+
+    sf::RectangleShape enemyBar;
     enemyBar.setFillColor(sf::Color::Red);
-    enemyBar.setPosition(550, 350);
-    enemyBar.setSize(sf::Vector2f(200 * enemyFill, 20));
-    */
+    enemyBar.setPosition(720, 435);
+    enemyBar.setSize(sf::Vector2f(-70, 30));
+    
+    sf::RectangleShape winBar;
+    winBar.setFillColor(sf::Color::Yellow);
+    winBar.setPosition(390, 435);
+    winBar.setSize(sf::Vector2f(20, 30));
+
 
     sf::Font font;
     if (!font.loadFromFile(ASSET_DIR "/pixel-font.ttf")) {
@@ -66,15 +84,11 @@ bool Battle::run(sf::Texture enemyTex) {
         return true; // Exit battle if resources fail to load
     }
 
-    sf::Text playerHealthText;
-    playerHealthText.setFont(font);
-    playerHealthText.setCharacterSize(20);
-    playerHealthText.setPosition(300, 400);
-
-    sf::Text enemyHealthText;
-    enemyHealthText.setFont(font);
-    enemyHealthText.setCharacterSize(20);
-    enemyHealthText.setPosition(420, 400);
+    sf::Text vsText;
+    vsText.setFont(font);
+    vsText.setCharacterSize(100);
+    vsText.setPosition(365, 200);
+    vsText.setString("VS");
 
     while (m_window.isOpen()) {
         sf::Event event;
@@ -86,36 +100,49 @@ bool Battle::run(sf::Texture enemyTex) {
 
             if (event.type == sf::Event::KeyPressed) {
                 if (event.key.code == sf::Keyboard::Space) {
-                    player_score += 5;
+                    player_score += 7;
                 } else if (event.key.code == sf::Keyboard::Enter) {
-                    enemy_score += 5;
+                    enemy_score += 7;
                 }
             }
         }
 
-        // Update health texts
-        playerHealthText.setString("Player Win%: " + std::to_string(player_score));
-        enemyHealthText.setString("Enemy Win%: " + std::to_string(enemy_score));
+        playerBar.setSize(sf::Vector2f(player_score, 30));
+        enemyBar.setSize(sf::Vector2f(-1 * enemy_score, 30));
 
         // Check battle end conditions
-        if (player_score >= 100) {
-            std::cout << "Player defeated!" << std::endl;
+        if (playerBar.getSize().x >= 320) {
+            outcome = true;
             return true;
         }
-        if (enemy_score >= 100) {
-            std::cout << "Enemy defeated!" << std::endl;
+        if (std::fabs(enemyBar.getSize().x) >= 320) {
+            outcome = false;
             return true;
         }
 
         m_window.clear(sf::Color::Black); // Background for battle
-        m_window.draw(playerHealthText);
-        m_window.draw(enemyHealthText);
         m_window.draw(background);
         m_window.draw(playerBaner);
         m_window.draw(enemyBaner);
+        m_window.draw(borderLeft);
+        m_window.draw(borderRight);
         m_window.draw(bar);
+        m_window.draw(winBar);
+        m_window.draw(playerBar);
+        m_window.draw(enemyBar);
+        m_window.draw(vsText);
         m_window.display();
     }
 
     return true;
+}
+
+bool Battle::getOutcome()
+{
+    return outcome;
+}
+
+bool Battle::getIsBoss()
+{
+    return isBoss;
 }

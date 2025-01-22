@@ -28,7 +28,7 @@ bool Win::run() {
 
     textshadow.setFont(font);
     textshadow.setFillColor(sf::Color::White);
-    textshadow.setCharacterSize(148);
+    textshadow.setCharacterSize(145);
     textshadow.setPosition(201, 150);
     textshadow.setString("YOU WON!");
 
@@ -65,6 +65,7 @@ bool Win::run() {
         m_window.draw(background);
         m_window.draw(text1);
         m_window.draw(text2);
+        m_window.draw(textshadow);
         m_window.display();
     }
 
